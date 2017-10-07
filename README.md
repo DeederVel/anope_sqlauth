@@ -18,6 +18,7 @@ along with this program.  If not, see [http://www.gnu.org/licenses/](http://www.
 
 # Configuration #
 Add this configuration block in your conf/modules.conf file
+```
     module
     {
         name = "m_deedsqlauth"
@@ -45,8 +46,9 @@ Add this configuration block in your conf/modules.conf file
          */
         disable_email_reason = "To change your e-mail address navigate to http://www.dummy.com"
     }
-
+```
 Remember to edit the `query` field with your specific query and change the column names in the module file to match the ones retrieved with the SQL query in the configuration file:
+```c
     /* ... */
     Anope::string hash;
     Anope::string email;
@@ -57,5 +59,6 @@ Remember to edit the `query` field with your specific query and change the colum
         email = r.Get(1, "email");
     }
     catch (const SQL::Exception &) { }
+```
 
-Also DO NOT FORGET to configure your SQL engine in your conf/modules.conf file to connect to your SQL server!
+Also **DO NOT FORGET** to configure your SQL engine in your conf/modules.conf file to connect to your SQL server!
