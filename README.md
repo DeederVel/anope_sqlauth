@@ -18,48 +18,44 @@ along with this program.  If not, see [http://www.gnu.org/licenses/](http://www.
 
 # Configuration #
 Add this configuration block in your conf/modules.conf file
-`
-module
-{
-	name = "m_deedsqlauth"
+    module
+    {
+        name = "m_deedsqlauth"
 
-	/* SQL engine to use. */
-	engine = "mysql/main"
+        /* SQL engine to use. */
+        engine = "mysql/main"
 
-	/* Query to send
-	 *
-	 * @a@ -> user's account name
-	 * @p@ -> user's password 
-	 * @n@ -> user's nickname
-	 * @i@ -> user's IP
-     *
-	 */
-	query = "SELECT `pass`,`email` FROM `users` WHERE `nickname` = @n@"
+        /* Query to send
+         *
+         * @a@ -> user's account name
+         * @p@ -> user's password 
+         * @n@ -> user's nickname
+         * @i@ -> user's IP
+         *
+         */
+        query = "SELECT `pass`,`email` FROM `users` WHERE `nickname` = @n@"
 
-	/*
-	 * If set, the reason to give the users who try to "/msg NickServ REGISTER". If not set, then registration is not blocked. 
-	 */
-	disable_reason = "To register a new account navigate to http://www.dummy.com"
+        /*
+         * If set, the reason to give the users who try to "/msg NickServ REGISTER". If not set, then registration is not blocked. 
+         */
+        disable_reason = "To register a new account navigate to http://www.dummy.com"
 
-	/*
-	 * If set, the reason to give the users who try to "/msg NickServ SET EMAIL". If not set, then email changing is not blocked.
-	 */
-	disable_email_reason = "To change your e-mail address navigate to http://www.dummy.com"
-}
-`
+        /*
+         * If set, the reason to give the users who try to "/msg NickServ SET EMAIL". If not set, then email changing is not blocked.
+         */
+        disable_email_reason = "To change your e-mail address navigate to http://www.dummy.com"
+    }
 
 Remember to edit the `query` field with your specific query and change the column names in the module file to match the ones retrieved with the SQL query in the configuration file:
-`
-/* ... */
-Anope::string hash;
-Anope::string email;
+    /* ... */
+    Anope::string hash;
+    Anope::string email;
 
-try
-{
-    hash = r.Get(0, "password");
-    email = r.Get(1, "email");
-}
-catch (const SQL::Exception &) { }
-`
+    try
+    {
+        hash = r.Get(0, "password");
+        email = r.Get(1, "email");
+    }
+    catch (const SQL::Exception &) { }
 
 Also DO NOT FORGET to configure your SQL engine in your conf/modules.conf file to connect to your SQL server!
